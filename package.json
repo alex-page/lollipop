@@ -4,7 +4,7 @@
   "description": "Minimal static site template for prototyping",
   "main": "index.js",
   "scripts": {
-    "watch": "browser-sync --watch",
+    "watch": "browser-sync docs/ --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
