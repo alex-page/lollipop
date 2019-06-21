@@ -1,42 +1,170 @@
 :root {
-	--base-font: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-	--base-font-size: 18px;
-	--text-color: #24292e;
-	--bg-color: #fff;
-	--content-width: 40rem;
+	--🍭-font-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	--🍭-font-mono: "SFMono-Regular", Consolas, Liberation Mono, Menlo, Courier, monospace;
+	--🍭-font-condensed: Impact, Haettenschweiler, "Franklin Gothic Bold", Charcoal, "Helvetica Inserat", "Bitstream Vera Sans Bold", "Arial Black", sans-serif;
+	--🍭-font-serif: Georgia, Cambria, "Times New Roman", Times, serif;
+
+	--🍭-shape-curved: 0.5rem;
+	--🍭-shape-angled: 0;
+
+	--🍭-primary-color: goldenrod;
+	--🍭-secondary-color: deeppink;
+
+	/* Generated variables from the system */
+	--space-sm: calc( var(--🍭-space-scale) * 1rem );
+	--space-md: calc( var(--🍭-space-scale) * 2rem );
+	--space-lg: calc( var(--🍭-space-scale) * 3rem );
+
+	/* Grid */
+	--grid-size: 4px;
+	--grid-color: rgba(255,255,255,0.1);
 }
 
+/* System level variables */
 html {
-	font-size: var(--base-font-size);
-	font-family: var(--base-font);
+	font-size: var(--🍭-base-font-size);
+	font-family: var(--🍭-font-family);
 	color: var(--text-color);
-	background: var(--bg-color);
+	background: #767676;
 }
 
 body {
-	margin: 0;
+	margin: 18px;
+	display: grid;
+	grid-template-columns: minmax( 10rem, 25% ) 1fr;
+	grid-gap: 18px;
 }
 
-main {
-	max-width: var(--content-width);
-	margin: 50px auto 0 auto;
-	padding: 0 50px;
-}
-
+/* Typography */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-p {
+p,
+pre {
 	margin: 0;
+	line-height: 1.5;
 }
 
 h1 {
-	font-size: 3rem;
+	font-size: calc(var(--🍭-type-scale) * var(--🍭-type-scale) * var(--🍭-type-scale) * var(--🍭-type-scale) * var(--🍭-type-scale) * 1rem);
+}
+
+h2 {
+	font-size: calc(var(--🍭-type-scale) * var(--🍭-type-scale) * var(--🍭-type-scale) * var(--🍭-type-scale) * 1rem);
+}
+
+h3 {
+	font-size: calc(var(--🍭-type-scale) * var(--🍭-type-scale) * var(--🍭-type-scale) * 1rem);
+}
+
+h4 {
+	font-size: calc(var(--🍭-type-scale) * var(--🍭-type-scale) * 1rem);
+}
+
+h5 {
+	font-size: calc(var(--🍭-type-scale) * 1rem);
+}
+
+h6,
+p {
+	font-size: 1rem;
 }
 
 * + p {
 	margin-top: 1rem;
+}
+
+pre,
+code {
+	font-family: var(--font-mono);
+}
+
+code {
+	background-color: #eee;
+	padding: 0.25rem;
+	margin: 0 0.25rem;
+	border-radius: 0.25rem;
+	font-size: 0.825rem;
+}
+
+/* helper classes */
+.pd-sm {
+	padding: var(--space-sm);
+}
+
+.pd-md {
+	padding: var(--space-md);
+}
+
+.pd-lg {
+	padding: var(--space-lg);
+}
+
+
+/* Layout */
+main {
+	background-color: var(--bg-color);
+	border-radius: 1rem;
+	display: inline-grid;
+	grid-auto-rows: auto;
+
+	grid-gap: var(--space-sm);
+}
+
+/* Card */
+.card {
+	border-top: var(--🍭-primary-color) 0.25rem solid;
+	color: var(--🍭-color-foreground);
+	background: var(--🍭-color-background);
+	border-radius: var(--🍭-shape);
+}
+
+/* Grid overlay */
+.grid {
+	background-image: 
+		repeating-linear-gradient(0deg,transparent,transparent var(--grid-size),var(--grid-color) var(--grid-size),var(--grid-color) calc(var(--grid-size) + 1px)),
+		repeating-linear-gradient(-90deg,transparent,transparent var(--grid-size),var(--grid-color) var(--grid-size),var(--grid-color) calc(var(--grid-size) + 1px));
+	background-position: -1px -1px;
+	background-size: calc(var(--grid-size) + 1px) calc(var(--grid-size) + 1px);
+}
+
+/* Overrides for the controls section */
+.toggles {
+	position: sticky;
+	font-family: var(--🍭-font-sans-serif);
+}
+
+.toggles h1 {
+	font-size: 32px;
+}
+
+.toggles p {
+	font-size: 16px !important;
+}
+
+.toggles .card {
+	border: 0;
+	padding: 9px;
+	background: #fff;
+	color: #24292e;
+}
+
+.toggles a {
+	text-decoration: none;
+	color: #0366d6;
+}
+
+.toggles a:hover {
+	text-decoration: underline;
+}
+
+.toggles > * + * {
+	margin-top: 18px;
+}
+
+.toggles .card {
+	border-radius: 0.5rem;
 }

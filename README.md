@@ -1,6 +1,6 @@
-# Site template
+# Lollipop
 
-> 🧪 Minimal static site template for prototyping
+> 🍭 Prototype to generate a system with different flavours, colours and sizes
 
 ## Get started
 
@@ -8,5 +8,3 @@ To get started make sure you have the latest version of `nodejs` and `npm` insta
 ```
 npm i && npm run watch
 ```
-
-This will create a local browser-sync instance live refreshing all the changes to the `index.html` and `./assets/*`.
