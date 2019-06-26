@@ -1,34 +1,155 @@
 <!DOCTYPE html>
-<html lang="en" class="grid">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Lollipop</title>
-	<link rel="shortcut icon" href="assets/🍭.png" type="image/x-icon">
-	<link rel="stylesheet" href="assets/index.css">
-</head>
-<body>
-	<!-- <div class="grid"></div> -->
-	<div class="toggles">
-		<h1 class="card"><a href="./">🍭 Lollipop <span>🔀</span></a></h1>
-	</div>
-	<main>
-		<div class="generated-content">
-			<div class="typography card pd-sm">
-				<h1>Hello world</h1>
-				<h2>Hello world</h2>
-				<h3>Hello world</h3>
-				<h4>Hello world</h4>
-				<h5>Hello world</h5>
-				<h6>Hello world</h6>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet quo eaque at ad dolor laborum, id mollitia rem sequi earum dolorum esse illo laboriosam reiciendis fugit. Modi quo at deserunt?</p>
-				<p>Tenetur, dolore consequatur! Perspiciatis, veritatis ut voluptatem suscipit quaerat molestiae recusandae nemo vel deleniti impedit facilis rem quia vero possimus earum fuga maxime commodi perferendis vitae in provident, aperiam qui!</p>
-				<p>Eaque ad voluptas eius dignissimos praesentium perspiciatis dolores pariatur facere? Deleniti fugit corrupti harum placeat quibusdam omnis iure dolorem minus, architecto optio, qui cupiditate libero sapiente, voluptate eaque obcaecati quod!</p>
-				<p>Ex sequi suscipit doloribus aperiam eligendi, hic facere provident ad sapiente placeat minima necessitatibus possimus? Qui temporibus odit veniam placeat odio facilis? Incidunt praesentium fugit explicabo ipsam exercitationem facilis distinctio.</p>
-			</div>
-		</div>
-	</main>
-	<script src="assets/index.js"></script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Lollipop</title>
+    <link rel="shortcut icon" href="assets/🍭.png" type="image/x-icon" />
+    <link rel="stylesheet" href="assets/index.css" />
+  </head>
+  <body>
+    <div class="sidebar">
+      <h1>🍭 Lollipop</h1>
+      <form>
+        <button>Randomise 🔀</button>
+      </form>
+    </div>
+    <main>
+      <div class="typography">
+        <h1>GitHub actions to publish npm packages</h1>
+        <blockquote>
+          Build, test and deploy npm packages with GitHub actions.
+        </blockquote>
+        <p>
+          <a href="https://github.com/features/actions">GitHub actions</a> allow
+          you to run scripts for your repository without having to use
+          applications. This is my early exploration of what is possible with
+          GitHub actions and npm. There are heaps of alternatives, so make sure
+          to try them out!
+        </p>
+        <p>
+          To follow along you will need to <a href="https://github.com/features/actions/signup/">sign up</a> to the GitHub actions beta.
+        </p>
+        <h2>Publishing workflow</h2>
+        <p>
+          I have some npm packages with specific workflow I always follow before
+          deploying a new version. My usual workflow for publishing npm packages
+          is to:
+        </p>
+        <ol>
+          <li>Create a Pull Request into master</li>
+          <li>Merge the pull request into master</li>
+          <li>Checkout master branch locally</li>
+          <li>Install dependencies <code>npm install</code></li>
+          <li>Test the functionality <code>npm run test</code></li>
+          <li>
+            Publish the package to the npm registry <code>npm publish</code>
+          </li>
+          <li>
+            If any of these steps fail I don't want to publish the package
+          </li>
+        </ol>
+        <p>With GitHub actions I can change the workflow to:</p>
+        <ol>
+          <li>Create a Pull Request into any branch</li>
+          <li>Run GitHub actions</li>
+          <li>
+            If any of the actions fail I will get <a href="https://help.github.com/en/articles/about-required-status-checks">failed checks</a> in the Pull Request
+          </li>
+          <li>Merge the pull request</li>
+        </ol>
+        <h2>Create a main.workflow</h2>
+        <p>
+          To use GitHub actions you need to create a
+          <code>.github/main.workflow</code> file in your master branch. This
+          file tells GitHub you have a workflow to run. You can do this by
+          creating the file in your repository or clicking the actions tab in
+          GitHub.
+        </p>
+        <h2>Workflow</h2>
+        <p>
+          Once you have the file created we need to add a workflow. To create
+          workflow we need:
+        </p>
+        <ul>
+          <li>
+            Workflow name: <strong>Build, test and publish on master</strong>
+          </li>
+          <li>
+            The action to finish the workflow on: <strong>["Test"]</strong>
+          </li>
+          <li>
+            The <a href="https://developer.github.com/actions/managing-workflows/workflow-configuration-options/#events-supported-in-workflow-files">event</a> to run the workflow: <strong>push</strong>
+          </li>
+        </ul>
+        <p>
+          A push event is ran when a push to a repository branch is made. Branch
+          pushes and repository tag pushes also trigger webhook push events.
+        </p>
+        <pre>
+					<code>
+					</code>
+				</pre>
+        <p>
+          <img
+            src="/assets/blog/workflow.jpg"
+            alt="Screenshot of how to create a workflow in the GitHub user interface"
+          />
+        </p>
+        <h2>Actions</h2>
+        <p>
+          Now that we have a workflow created we can create our actions. Actions
+          are <a href="https://developer.github.com/actions/managing-workflows/workflow-configuration-options/#using-a-dockerfile-image-in-an-action">docker containers</a> that use arguments, secrets and environment variables with the files
+          in your repository. To create an action for publish we need:
+        </p>
+        <ul>
+          <li>The name of the action: <strong>Install dependencies</strong></li>
+          <li>
+            The docker container: <strong><a href="https://github.com/actions/npm">actions/npm@master</a></strong>
+          </li>
+          <li>
+            The arguments to pass to the container: <strong>install</strong>
+          </li>
+        </ul>
+        <pre>
+					<code>
+					</code>
+				</pre>
+        <blockquote>
+          <p>
+            Note: you will need the word <code>run</code> before custom npm
+            scripts.
+          </p>
+        </blockquote>
+        <p>
+          We now have a new workflow that runs for every push into the
+          repository. It will create a docker container using
+          <a href="https://github.com/actions/npm">actions/npm@master</a> and
+          run <code>npm install</code> then <code>npm run test</code>. If the
+          install and test pass the workflow resolves successfully.
+        </p>
+        <h2>Publishing when pushed to master</h2>
+        <p>
+          Lets add some more actions for install, test and filtering for the
+          master branch. We will use the
+          <a href="https://github.com/actions/bin/tree/master/filter">actions/bin/filter@master</a> to make sure we are in the master branch before running the publish
+          action. The publish action will need a secret <code>NPM_AUTH_TOKEN</code> to publish to the NPM registry, you can <a href="https://docs.npmjs.com/creating-and-viewing-authentication-tokens">create an npm token here</a>.
+        </p>
+        <p>Lets update our workflow to include filtering and publishing.</p>
+        <pre>
+					<code>
+					</code>
+				</pre>
+        <p>
+          And thats it! You now have a simple workflow to publish your npm
+          packages.
+        </p>
+        <p>
+          If you liked this post or have feedback <a href="https://twitter.com/aalexpaage">please let me know</a>. I am thinking of writing some more posts on publishing static sites and a beginners guide to creating an action.
+        </p>
+      </div>
+    </main>
+    <script src="assets/index.js"></script>
+  </body>
 </html>
