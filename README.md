@@ -8,5 +8,3 @@ To get started make sure you have the latest version of `nodejs` and `npm` insta
 ```
 npm i && npm run watch
 ```
-
-deploy please
