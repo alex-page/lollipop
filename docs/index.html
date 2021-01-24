@@ -62,7 +62,7 @@
         <h2>Create a main.workflow</h2>
         <p>
           To use GitHub actions you need to create a
-          <code>.github/main.workflow</code> file in your master branch. This
+          <code>.github/main.workflow</code> file in your main branch. This
           file tells GitHub you have a workflow to run. You can do this by
           creating the file in your repository or clicking the actions tab in
           GitHub.
@@ -74,7 +74,7 @@
         </p>
         <ul>
           <li>
-            Workflow name: <strong>Build, test and publish on master</strong>
+            Workflow name: <strong>Build, test and publish on main</strong>
           </li>
           <li>
             The action to finish the workflow on: <strong>["Test"]</strong>
@@ -106,7 +106,7 @@
         <ul>
           <li>The name of the action: <strong>Install dependencies</strong></li>
           <li>
-            The docker container: <strong><a href="https://github.com/actions/npm">actions/npm@master</a></strong>
+            The docker container: <strong><a href="https://github.com/actions/npm">actions/npm@main</a></strong>
           </li>
           <li>
             The arguments to pass to the container: <strong>install</strong>
@@ -125,15 +125,15 @@
         <p>
           We now have a new workflow that runs for every push into the
           repository. It will create a docker container using
-          <a href="https://github.com/actions/npm">actions/npm@master</a> and
+          <a href="https://github.com/actions/npm">actions/npm@main</a> and
           run <code>npm install</code> then <code>npm run test</code>. If the
           install and test pass the workflow resolves successfully.
         </p>
-        <h2>Publishing when pushed to master</h2>
+        <h2>Publishing when pushed to main</h2>
         <p>
           Lets add some more actions for install, test and filtering for the
-          master branch. We will use the
-          <a href="https://github.com/actions/bin/tree/master/filter">actions/bin/filter@master</a> to make sure we are in the master branch before running the publish
+          main branch. We will use the
+          <a href="https://github.com/actions/bin/tree/main/filter">actions/bin/filter@main</a> to make sure we are in the main branch before running the publish
           action. The publish action will need a secret <code>NPM_AUTH_TOKEN</code> to publish to the NPM registry, you can <a href="https://docs.npmjs.com/creating-and-viewing-authentication-tokens">create an npm token here</a>.
         </p>
         <p>Lets update our workflow to include filtering and publishing.</p>
